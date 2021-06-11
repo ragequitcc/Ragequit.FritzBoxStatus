@@ -15,7 +15,7 @@ docker build -t <name> .
 Run:
 
 ```
-docker run <name> -p <customport>:8080 -e FritzBoxUri="uri" -e FritzBoxUser="user" -e FritzBoxPassword="pass"
+docker run --name <name> -p <customport>:8080 -e FritzBoxUri="uri" -e FritzBoxUser="user" -e FritzBoxPassword="pass" <image-name>
 ```
 
 Or
