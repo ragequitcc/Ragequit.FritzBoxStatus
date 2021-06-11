@@ -15,7 +15,27 @@ docker build -t <name> .
 Run:
 
 ```
-docker run <name> -p <customport>:8080 -e FritzBoxUri="" -e FritzBoxUser="" -e FritzBoxPassword=""
+docker run <name> -p <customport>:8080 -e FritzBoxUri="uri" -e FritzBoxUser="user" -e FritzBoxPassword="pass"
 ```
 
-Then visit `127.0.0.1:<customport>`
+Or
+
+Unix / MacOS
+
+```
+export FritzBoxUri=<uri>
+export FritzBoxUser=<user>
+export FritzBoxPassword=<password>
+```
+
+Windows Powershell
+
+```
+$Env:FritzBoxUri = "<uri>"
+$Env:FritzBoxUser = "<user>"
+$Env:FritzBoxPassword = "<password>"
+```
+
+And then run `pyton main.py`
+
+Visit `127.0.0.1:<customport>` to get the WAN IPv4.
