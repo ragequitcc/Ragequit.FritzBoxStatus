@@ -15,10 +15,9 @@ if "FritzBoxPassword" not in environ:
     print("FritzBoxPassword Missing")
     quit()
 
-fc = FritzConnection(address="192.168.178.1",
-                     user="dyndns", password="admin123")
+fc = FritzConnection(address=environ["FritzBoxUri"],
+                     user=environ["FritzBoxUser"], password=environ["FritzBoxPassword"])
 fs = FritzStatus(fc)
-
 
 ip = fs.external_ip if fs.external_ip else fc.call_action(
     "WANPPPConnection1", "GetInfo")["NewExternalIPAddress"]
