@@ -1,8 +1,12 @@
 FROM python:3
 
-ADD main.py /
+WORKDIR /var/Ragequit.FritzBoxStatus
 
-RUN pip install fritzconnection requests
+COPY main.py ./
+
+COPY requirements.txt ./
+
+RUN pip install fritzconnection
 
 EXPOSE 8080
 

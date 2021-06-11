@@ -2,20 +2,22 @@ from os import environ
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from fritzconnection.lib.fritzstatus import FritzStatus
 
+print(environ)
+
 if "FritzBoxUri" not in environ:
     print("FritzBoxUri Missing")
     quit()
 
 if "FritzBoxUser" not in environ:
-    print("FritzBoxUri Missing")
+    print("FritzBoxUser Missing")
     quit()
 
 if "FritzBoxPassword" not in environ:
-    print("FritzBoxUri Missing")
+    print("FritzBoxPassword Missing")
     quit()
 
 fc = FritzStatus(address=environ["FritzBoxUri"],
-                 user=environ["FritzBox"], password=environ["FritzBoxPassword"])
+                 user=environ["FritzBoxUser"], password=environ["FritzBoxPassword"])
 
 
 class Server(BaseHTTPRequestHandler):
