@@ -19,16 +19,15 @@ fc = FritzConnection(address=environ["FritzBoxUri"],
                      user=environ["FritzBoxUser"], password=environ["FritzBoxPassword"])
 fs = FritzStatus(fc)
 
-ip = fs.external_ip if fs.external_ip else fc.call_action(
-    "WANPPPConnection1", "GetInfo")["NewExternalIPAddress"]
-
-
 class Server(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(ip.encode())
+        if self.path == "/ip":
+            ip = fs.external_ip if fs.external_ip else fc.call_action("WANPPPConnection1", "GetInfo")["NewExternalIPAddress"]
+            
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(ip.encode())
 
 
 httpd = HTTPServer(("0.0.0.0", 8080), Server)
