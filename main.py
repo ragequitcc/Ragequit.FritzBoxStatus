@@ -3,8 +3,19 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from fritzconnection.lib.fritzstatus import FritzStatus
 from fritzconnection import FritzConnection
 
-fc = FritzConnection(address="192.168.178.1",
-                     user="dyndns", password="admin123")
+if "FritzBoxUri" not in environ:
+    print("FritzBoxUri Missing")
+    quit()
+
+if "FritzBoxUser" not in environ:
+    print("FritzBoxUser Missing")
+    quit()
+
+if "FritzBoxPassword" not in environ:
+    print("FritzBoxPassword Missing")
+    quit()
+
+fc = FritzConnection(address=environ["FritzBoxUri"], user=environ["FritzBoxUser"], password=environ["FritzBoxPassword"])
 fs = FritzStatus(fc)
 
 class Server(BaseHTTPRequestHandler):
@@ -22,7 +33,8 @@ class Server(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(ip.encode())
+            self.wfile.write(ip.encode())          
+
 
 httpd = HTTPServer(("0.0.0.0", 8080), Server)
 httpd.serve_forever()
